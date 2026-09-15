@@ -1,0 +1,35 @@
+CREATE TABLE kategori (
+  id INT GENERATED ALWAYS AS IDENTITY NOT NULL PRIMARY KEY,
+  nama VARCHAR(255)
+);
+
+CREATE TABLE rak_buku (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  lokasi VARCHAR(50),
+  kapasitas int
+);
+
+CREATE TABLE buku (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_kategori INT NOT NULL REFERENCES kategori(id),
+  id_rak INT NOT NULL REFERENCES rak_buku(id),
+  nama VARCHAR(255),
+  halaman VARCHAR(100),
+  penulis VARCHAR(255),
+  penerbit VARCHAR(255),
+  tahun_terbit INT
+);
+
+CREATE TABLE petugas (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  nama VARCHAR(255),
+  umur INT,
+  posisi VARCHAR(100)
+);
+
+CREATE TABLE peminjaman (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_petugas INT NOT NULL REFERENCES petugas(id),
+  id_buku INT UNIQUE NOT NULL REFERENCES buku(id),
+  nama_peminjam VARCHAR(255)
+);
